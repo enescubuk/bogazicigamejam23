@@ -4,5 +4,11 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Metin/Scenes/StartScene.unity
+    guid: 16f9f7a227778d04487cdabb66f27d8f
+  - enabled: 1
+    path: Assets/Metin/Scenes/GamePause.unity
+    guid: fa6741b231899e044aae53566ff82b1e
   m_configObjects: {}
