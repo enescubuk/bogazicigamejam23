@@ -9,81 +9,49 @@ public class CarManager : MonoBehaviour
     public GameObject bartarget,mainbar;
     public int randomScale;
     public GameObject[] frontWheels;
-    float axisY;
     Rigidbody rb => GetComponent<Rigidbody>();
-    bool drunkMod = false;
-    public float drunkRepeatRate;
-    float drunkRate;
-    float rotate;
-    void Start()
-    {
-        rotate = Random.Range(-1f,1f);
-    }
 
+    int drunkValue = 1;
+    float rotate;
+    private void Start()
+    {
+        InvokeRepeating("ChangeDrunkValue", 1, 1);
+    }
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            drunkMod = true;
-            InvokeRepeating("randomDirection",0,drunkRate);
-        }
-        if (Input.GetKeyUp(KeyCode.Space))
-        {
-            drunkMod = false;
-            CancelInvoke("randomDirection");
-        }
+        rotate = drunkValue;
+
+        if (Input.GetKey(KeyCode.A)) { rotate = -1; }
+        if (Input.GetKey(KeyCode.S)) { rotate = 0; }
+        if (Input.GetKey(KeyCode.D)) { rotate = 1; }
     }
     void FixedUpdate()
     {
-        //carForwardMovement();
-        axisY = Input.GetAxis("Horizontal");
-        //carCurve(axisY);
-        if (axisY != 0)
-        {
-            frontWheels[0].transform.DORotate(new Vector3(-90,axisY * 50,0),0.1f);
-            frontWheels[1].transform.DORotate(new Vector3(-90,axisY * 50,0),0.1f);
-            
-        }
-        else
-        {
-            transform.DORotate(new Vector3(0,0,0),0.1f);
-        }
-        float moveForward = Input.GetAxis("Vertical");
-        rotate = 0;
-        float horizontal = Input.GetAxis("Horizontal");
-        
-        if (moveForward != 0f || rotate != 0f)
+        //Rotate Car and Wheels
+        if (rotate != 0f)
         {
             float desiredRotation = rotate  * 20;
             Quaternion rotation = Quaternion.Euler(0f, desiredRotation, 0f);
             Quaternion newRotation = Quaternion.RotateTowards(transform.rotation, rotation, 90f * Time.fixedDeltaTime);
             rb.MoveRotation(newRotation);
-        }
-        else if (drunkMod == true)
-        {
-            float desiredRotation = rotate  * 20;
-            Quaternion rotation = Quaternion.Euler(0f, desiredRotation, 0f);
-            Quaternion newRotation = Quaternion.RotateTowards(transform.rotation, rotation, 90f * Time.fixedDeltaTime);
-            rb.MoveRotation(newRotation);
+            frontWheels[0].transform.DORotate(new Vector3(-90, rotate * 50, 0), 0.1f);
+            frontWheels[1].transform.DORotate(new Vector3(-90, rotate * 50, 0), 0.1f);
         }
         else
         {
-            
+            transform.DORotate(new Vector3(0, 0, 0), 0.1f);
             Quaternion zeroRotation = Quaternion.Euler(0f, 0f, 0f);
             Quaternion newRotation = Quaternion.RotateTowards(transform.rotation, zeroRotation, 90f * Time.fixedDeltaTime);
             rb.MoveRotation(newRotation);
         }
 
-        Vector3 movement = transform.forward * moveForward * 10f * Time.fixedDeltaTime;
+        Vector3 movement = transform.forward * 10f * Time.fixedDeltaTime;
         rb.MovePosition(rb.position + movement);
-
-        
     }
-
-    void randomDirection()
+    void ChangeDrunkValue()
     {
-        drunkRate = Random.Range(-1f,1f);
-
+        drunkValue = Random.Range(-1, 2);
+        Debug.Log(drunkValue);
     }
     void barRandomMovement()
     {
