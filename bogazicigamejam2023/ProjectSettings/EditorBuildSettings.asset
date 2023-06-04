@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/ANA OYUN/Scenes/StartScene.unity
     guid: 16f9f7a227778d04487cdabb66f27d8f
   - enabled: 1
+    path: Assets/Metin/Scenes/GamePause.unity
+    guid: fa6741b231899e044aae53566ff82b1e
+  - enabled: 1
     path: Assets/ANA OYUN/Scenes/ANA OYUN.unity
     guid: 26fe1dc50e570b942b0481c981c2b3f3
   m_configObjects: {}
