@@ -51,7 +51,6 @@ public class CarManager : MonoBehaviour
     void ChangeDrunkValue()
     {
         drunkValue = Random.Range(-1, 2);
-        Debug.Log(drunkValue);
     }
     void barRandomMovement()
     {
@@ -60,5 +59,9 @@ public class CarManager : MonoBehaviour
         float mainBarY = randomPos.y;
         float newMainBarY = Random.Range(mainBarY-randomScale,mainBarY+randomScale  );
         bartarget.transform.DOMoveY(newMainBarY,1f);
+    }
+    public void asd()
+    {
+        Debug.Log(31312313123123123);
     }
 }
